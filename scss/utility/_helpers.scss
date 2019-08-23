@@ -1,0 +1,37 @@
+/*-- MARGIN BOTTOM AND BOTTOM --*/
+$i: 6;
+$base: 5px;
+@while $i > 0 {
+    .mt-#{$i * $i} {
+        margin-top: $base * $i;
+    }
+    .mb-#{$i * $base} {
+        margin-bottom: $base * $i;
+    }
+    $i: $i - 1;
+}
+
+.text-upper{
+    text-transform: uppercase;
+}
+
+
+
+.no-padding {
+    padding: 0;
+}
+
+.image-holder {
+  $unit: 200px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $unit;
+  height: $unit;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

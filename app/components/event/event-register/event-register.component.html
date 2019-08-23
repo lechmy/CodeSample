@@ -1,0 +1,216 @@
+<div class="register">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" novalidate>
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>First Name *</label>
+              <input type="text" name="firstName" formControlName="firstName" #inputfield>
+              <div *ngIf="validator.firstName?.invalid" class="validation-message">
+                <span>First name is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Last Name *</label>
+              <input type="text" name="lastName" formControlName="lastName" #inputfield>
+              <div *ngIf="validator.lastName?.invalid" class="validation-message">
+                <span>Last name is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Email *</label>
+              <input type="text" name="email" formControlName="email" #inputfield>
+              <div *ngIf="validator.email?.invalid" class="validation-message">
+                <span>Email is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Phone *</label>
+              <input type="text" name="phone" formControlName="phone" #inputfield>
+              <div *ngIf="validator.phone?.invalid" class="validation-message">
+                <span>Phone is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Password *</label>
+              <input type="password" name="password" formControlName="password" appServerValidator="password" [formKey]="enrollmentFormKey" #inputfield>
+              <div *ngIf="validator.password?.invalid" class="validation-message">
+                <span>Password is required</span>
+              </div>
+              <ng-container *ngIf="password.invalid && (password.dirty || password.touched)">
+                <div *ngIf="password.errors.server" class="validation-message">
+                  <span *ngFor="let error of password.errors.server">{{error}}</span>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Confirm Password *</label>
+              <input type="password" name="confirmPassword" formControlName="confirmPassword" [ngClass]="{'ng-custom-error': registerForm.hasError('notSame')}" #inputfield>
+              <div *ngIf="registerForm.hasError('notSame')" class="validation-message">
+                <span>Password do not match</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Street</label>
+              <input type="text" name="address" formControlName="address">
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>District</label>
+              <input type="text" name="district" formControlName="district">
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>How did you hear about us *</label>
+              <select name="howDidYouHearAboutUs" formControlName="howDidYouHearAboutUs" #inputfield>
+                <option [ngValue]="null"></option>
+                <option *ngFor="let item of howDidYouHearAboutUs" [ngValue]="item">{{item}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+              <div *ngIf="validator.howDidYouHearAboutUs?.invalid" class="validation-message">
+                <span>Please select where have you heard of us</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Child First Name *</label>
+              <input type="text" name="childFirstName" formControlName="childFirstName" #inputfield>
+              <div *ngIf="validator.childFirstName?.invalid" class="validation-message">
+                <span>Child's first name is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Child Last Name *</label>
+              <input type="text" name="childLastName" formControlName="childLastName" #inputfield>
+              <div *ngIf="validator.childLastName?.invalid" class="validation-message">
+                <span>Child's last name is required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-md-3">
+            <div class="inputgroup">
+              <label>Gender *</label>
+              <select name="gender" formControlName="gender" #inputfield>
+                <option [ngValue]="null"></option>
+                <option *ngFor="let item of gender" [ngValue]="item">{{item}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+              <div *ngIf="validator.gender?.invalid" class="validation-message">
+                <span>Child's gender is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="inputgroup">
+              <label>Birth Day *</label>
+              <select name="birthDay" formControlName="birthDay" [ngClass]="{'ng-custom-error': registerForm.hasError('invalidDate')}" #inputfield>
+                <option [ngValue]="null"></option>
+                <option *ngFor="let item of birthDate.day" [ngValue]="item">{{item}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+              <div *ngIf="validator.birthDay?.invalid" class="validation-message">
+                <span>Child's birth day is required</span>
+              </div>
+              <div *ngIf="invalidDate" class="validation-message">
+                <span>Invalid birth date</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="inputgroup">
+              <label>Birth Month *</label>
+              <select name="advert" formControlName="birthMonth" #inputfield>
+                <option [ngValue]="null"></option>
+                <option *ngFor="let item of birthDate.month" [ngValue]="item">{{item}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+              <div *ngIf="validator.birthMonth?.invalid" class="validation-message">
+                <span>Child's birth month is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="inputgroup">
+              <label>Birth Year *</label>
+              <select name="advert" formControlName="birthYear" #inputfield>
+                <option [ngValue]="null"></option>
+                <option *ngFor="let item of birthDate.year" [ngValue]="item">{{item}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+              <div *ngIf="validator.birthYear?.invalid" class="validation-message">
+                <span>Child's birth year is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="inputgroup">
+              <label>Language Spoken *</label>
+              <select name="languageSpoken" formControlName="languageSpoken" #inputfield>
+                <option [ngValue]="null"></option>
+                <option *ngFor="let item of languageSpoken" [ngValue]="item">{{item}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+              <div *ngIf="validator.languageSpoken?.invalid" class="validation-message">
+                <span>Child's spoken language is required</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="inputgroup">
+              <label>Note</label>
+              <textarea name="note" formControlName="note"></textarea>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <div class="inputgroup">
+              <label>Price</label>
+              <input type="text" value="{{currencySign}}{{eventPrice.calculatedPriceTotal}}" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6">
+            <app-event-coupon [institutionId]="institutionId" [eventId]="event.eventId" (couponValidated)="onCouponValidated($event)"></app-event-coupon>
+          </div>
+          <div class="col-12">
+            <div class="inputgroup">
+              <div class="checkbox">
+                <input id="terms" type="checkbox" formControlName="isAcceptedTerms">
+                <label for="terms">I have read and accept the T&C and privacy policy</label>
+              </div>
+              <div *ngIf="validator.isAcceptedTerms?.invalid" class="validation-message">
+                <span>Please select T&C</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col">
+            <button [disabled]="isBusy" type="submit" class="btn-regular-alt btn-block">Sign up and register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

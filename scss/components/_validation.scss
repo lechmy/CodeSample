@@ -1,0 +1,32 @@
+.validation-message {
+    padding: 0 8px;
+    color: $error;
+    font-family: Diavlo;
+    font-size: 16px;
+    font-weight: 300;
+
+    & > * {
+      display: block;
+    }
+}
+.validation-summary-errors {
+    margin: 8px 0;
+    padding: 12px 24px;
+    border: 1px solid $error;
+    border-radius: 4px;
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        color: $error;
+    }
+}
+
+.validation-success {
+    margin: 8px 0;
+    padding: 12px 24px;
+    border: 1px solid $success;
+    border-radius: 4px;
+    color: $success;
+}

@@ -1,0 +1,97 @@
+<h2 class="title">{{birthdayEvent.title}}</h2>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <div class="row">
+          <!--<div class="col-12">
+            <div class="event-detail">
+              <p class="label">Name</p>
+              <p class="value">{{birthdayEvent.courseName}}</p>
+            </div>
+          </div>-->
+          <div class="col-12">
+            <div class="event-detail">
+              <p class="label">Address</p>
+              <p class="value">{{birthdayEvent.location}}</p>
+            </div>
+          </div>
+          <!--<div class="col-12 col-md-6">
+            <div class="event-detail">
+              <p class="label">Language</p>
+              <p class="value">{{birthdayEvent.language}}</p>
+            </div>
+          </div>-->
+          <div class="col-12 col-md-6">
+            <div class="event-detail">
+              <p class="label">Price</p>
+              <p class="value">{{currencySign}}{{birthdayEvent.price}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="event-detail">
+          <p class="label">Date</p>
+          <p class="value" [innerHtml]="birthdayEvent.dayInfo | rawHtml"></p>
+          <p class="value">
+            <ng-container>
+              <span>
+                {{birthdayEvent.eventDay.date | date}}
+              </span>
+            </ng-container>
+          </p>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h2 class="title">Birthday options</h2>
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="event-detail">
+          <p class="label">Birthday activity</p>
+          <p class="value">{{birthdayEvent.birthdayActivity?.name}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="event-detail">
+          <p class="label">Birthday package</p>
+          <p class="value">{{birthdayEvent.birthdayPackage?.name}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="event-detail">
+          <p class="label">Average age</p>
+          <p class="value">{{birthdayEvent.averageAge}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="event-detail">
+          <p class="label">Additional number of children</p>
+          <p class="value">{{birthdayEvent.additionalNumberOfChildren}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="event-detail">
+          <p class="label">Are parents welcome?</p>
+          <p class="value" *ngIf="birthdayEvent.areParentsWelcome == true">Yes</p>
+          <p class="value" *ngIf="birthdayEvent.areParentsWelcome == false">No</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="event-detail">
+          <p class="label">Language</p>
+          <p class="value">{{birthdayEvent.language}}</p>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="event-detail">
+          <p class="label">Birthday Extras</p>
+          <p class="value">
+            <span *ngFor="let extra of birthdayEvent.birthdayExtras">{{extra.name}}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

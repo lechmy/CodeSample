@@ -1,0 +1,111 @@
+<div *ngIf="participantExtended">
+  <form [formGroup]="accountInfoForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="inputgroup">
+          <label for="firstName">First Name *</label>
+          <input type="text" id="firstName"
+                 formControlName="firstName" appServerValidator="firstName" [formKey]="accountInfoFormKey">
+          <div class="validation-message">
+            <ng-container *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+              <!-- Server errors -->
+              <ng-container *ngIf="firstName.errors.server">
+                <span *ngFor="let error of firstName.errors.server">{{error}}</span>
+              </ng-container>
+              <span *ngIf="firstName.errors.required">Field is required.</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="inputgroup">
+          <label for="lastName">Last Name *</label>
+          <input type="text" id="lastName"
+                 formControlName="lastName" appServerValidator="lastName" [formKey]="accountInfoFormKey">
+          <div class="validation-message">
+            <ng-container *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+              <!-- Server errors -->
+              <ng-container *ngIf="lastName.errors.server">
+                <span *ngFor="let error of lastName.errors.server">{{error}}</span>
+              </ng-container>
+              <span *ngIf="lastName.errors.required">Field is required.</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="inputgroup">
+          <label for="email">Email *</label>
+          <input type="text" id="email"
+                 formControlName="email" appServerValidator="email" [formKey]="accountInfoFormKey">
+          <div class="validation-message">
+            <ng-container *ngIf="email.invalid && (email.dirty || email.touched)">
+              <!-- Server errors -->
+              <ng-container *ngIf="email.errors.server">
+                <span *ngFor="let error of email.errors.server">{{error}}</span>
+              </ng-container>
+              <span *ngIf="email.errors.required">Field is required.</span>
+              <span *ngIf="email.errors.email">Invalid email.</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="inputgroup">
+          <label for="phone">Phone *</label>
+          <input type="text" id="phone"
+                 formControlName="phone" appServerValidator="phone" [formKey]="accountInfoFormKey">
+          <div class="validation-message">
+            <ng-container *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+              <!-- Server errors -->
+              <ng-container *ngIf="phone.errors.server">
+                <span *ngFor="let error of phone.errors.server">{{error}}</span>
+              </ng-container>
+              <span *ngIf="phone.errors.required">Field is required.</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="inputgroup">
+          <label for="address">Address</label>
+          <input type="text" id="address"
+                 formControlName="address" appServerValidator="address" [formKey]="accountInfoFormKey">
+          <div class="validation-message">
+            <ng-container *ngIf="address.invalid && (address.dirty || address.touched)">
+              <!-- Server errors -->
+              <ng-container *ngIf="address.errors.server">
+                <span *ngFor="let error of address.errors.server">{{error}}</span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="inputgroup">
+          <label for="district">District</label>
+          <input type="text" id="district"
+                 formControlName="district" appServerValidator="district" [formKey]="accountInfoFormKey">
+          <div class="validation-message">
+            <ng-container *ngIf="district.invalid && (district.dirty || district.touched)">
+              <!-- Server errors -->
+              <ng-container *ngIf="district.errors.server">
+                <span *ngFor="let error of district.errors.server">{{error}}</span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 offset-lg-3">
+        <button class="btn-regular-alt btn-block" type="submit" [disabled]="isBusy">Save</button>
+      </div>
+      <div class="col-6 col-lg-3 text-right">
+        <button type="button" class="btn btn-link" (click)="toggleChangePassword()"
+                [attr.aria-expanded]="!isChangePasswordCollapsed" aria-controls="changePasswordFormContainer">Change password</button>
+      </div>
+    </div>
+  </form>
+  <div id="changePasswordFormContainer" [ngbCollapse]="isChangePasswordCollapsed">
+    <app-account-change-password [participantExtended]="participantExtended"></app-account-change-password>
+  </div>
+</div>

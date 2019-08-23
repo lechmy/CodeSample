@@ -1,0 +1,36 @@
+<header>
+  <a class="logo" [routerLink]="'/' | languageAndInstitution">
+      <img src="./assets/logo.png" alt="">
+  </a>
+  <button class="btn-menu" (click)="toggleNav()" [ngClass]="{'active': navActive}">
+    <span>Menu</span>
+    <span class="sign"></span>
+  </button>
+  <nav [ngClass]="{'active': navActive}">
+    <div class="left">
+      <a *ngFor="let link of courses" [routerLink]="['/location', link.courseGroup | lowercase] | languageAndInstitution" (click)="closeNav()">{{link.name}}</a>
+    </div>
+    <div class="right">
+      <div>
+        <a *ngIf="phoneMobile" href="javascript:;" target="_blank">{{phoneMobile}}</a>
+        <a href="javascript:;" class="text-capitalize">{{institutionName}}</a>
+      </div>
+      <div>
+        <a *ngIf="newsletterLink" href="{{newsletterLink}}" target="_blank">Newsletter</a>
+        <ng-container *ngIf="!participant">
+          <a [routerLink]="'/login' | languageAndInstitution" (click)="closeNav()">Login</a>
+        </ng-container>
+        <ng-container *ngIf="participant">
+          <div ngbDropdown placement="bottom-right" class="d-flex">
+            <a id="participantMenu" href="javascript:;" ngbDropdownToggle>{{participant.firstName}}</a>
+            <div ngbDropdownMenu aria-labelledby="participantMenu">
+              <a [routerLink]="'/account' | languageAndInstitution" (click)="closeNav()" class="dropdown-item">Account</a>
+              <a [routerLink]="'/logout' | languageAndInstitution" (click)="closeNav()" class="dropdown-item">Logout</a>
+            </div>
+          </div>
+        </ng-container>
+        <a href="javascript:;">en</a>
+      </div>
+    </div>
+  </nav>
+</header>

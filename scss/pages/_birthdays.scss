@@ -1,0 +1,137 @@
+.birthdays{
+  .birthday-timetable{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    >button{
+      $unit: 30px;
+      flex-shrink: 0;
+      width: $unit;
+      height: $unit;
+      padding: 4px;
+      border: 2px solid $secondary;
+      border-radius: 4px;
+      background-color: $white;
+      color: $secondary;
+      text-align: center;
+      line-height: 1;
+      @include transition(background-color $time);
+      &:hover{
+        background-color: rgba($secondary, 0.2);
+      }
+      &:focus{
+        outline: none;
+      }
+      @media (max-width: 991px){
+        display: none;
+      }
+    }
+    .timetable{
+      flex-grow: 1;
+      display: flex;
+      margin: 0 8px;
+      padding-bottom: 8px;
+      overflow-x: auto;
+      @media (max-width: 991px){
+        margin: 0;
+      }
+    }
+    .item{
+      width: 180px;
+      min-width: 180px;
+      margin-right: 8px;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+    .date{
+      margin-bottom: 8px;
+      border-bottom: 2px solid $primary;
+      color: $gray-dark;
+      font-size: 24px;
+    }
+    .time{
+      margin-bottom: 4px;
+      padding: 8px;
+      border: 2px solid $secondary;
+      border-radius: 4px;
+      text-align: center;
+      color: $secondary;
+      cursor: pointer;
+      @include transition((background-color $time, color $time));
+
+      &:hover{
+        background-color: rgba($secondary, 0.2);
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+
+      &.selected{
+        background-color: $secondary;
+        color: $white;
+      }
+
+      &.disabled{
+        border-color: $gray-dark;
+        color: $gray-dark;
+        cursor: not-allowed;
+        &:hover{
+          background-color: $white;
+        }
+      }
+    }
+  }
+  .birthday-details{
+    margin-bottom: 16px;
+    .title{
+      font-size: 24px;
+      font-weight: 700;
+    }
+  }
+  .birthday-extras{
+    margin-bottom: 16px;
+
+    .title{
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .extras-item{
+      position: relative;
+      display: inline-block;
+      width: 30%;
+      margin-bottom: 24px;
+      padding-right: 20px;
+      margin-right: 5%;
+      vertical-align: middle;
+      @media(min-width: 992px) {
+        &:nth-of-type(3n){
+          margin-right: 0;
+        }
+      }
+      @media(max-width: 991px) and (min-width: 768px) {
+        width: 48%;
+        margin-right: 4%;
+        &:nth-of-type(2n){
+          margin-right: 0;
+        }
+      }
+      @media(max-width: 767px) {
+        width: 100%;
+        margin-right: 0;
+        padding: 0 24px 0 0;
+      }
+      .checkbox label{
+        padding-left: 8px;
+      }
+    }
+  }
+  .package-description{
+    //margin-top: 16px;
+    padding: 16px 8px 8px 8px;
+    border: 2px solid $primary;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+  }
+}

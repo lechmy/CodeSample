@@ -1,0 +1,89 @@
+%inputfield {
+    display: block;
+    width: 100%;
+    padding: 8px 18px;
+    border: none;
+    border-bottom: 2px solid $gray-dark;
+    border-radius: 4px;
+    background-color: $gray-light;
+    color: $black;
+    font-size: 16px;
+    line-height: 23px;
+    @include transition(border $time);
+
+    @media (max-width: 767px) {
+        font-size: 16px;
+    }
+
+    &:focus {
+        outline: none;
+        border-bottom-color: $primary;
+    }
+}
+
+.inputgroup {
+    position: relative;
+    margin-bottom: 16px;
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+        @extend %inputfield;
+    }
+
+    label {
+        padding: 0 8px;
+        color: $black;
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    select{
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+  &.inline-controls{
+    display: flex;
+    flex-wrap: wrap;
+    label, .validation-message{
+      width: 100%;
+      flex-grow: 1;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    select {
+      flex-grow: 1;
+      width: 100px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .add-on{
+      flex-grow: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+  .select-wrapper{
+    position: relative;
+    .carrot{
+      top: 12px;
+    }
+  }
+  .carrot{
+    position: absolute;
+    right: 8px;
+    top: 44px;
+    pointer-events: none;
+  }
+}

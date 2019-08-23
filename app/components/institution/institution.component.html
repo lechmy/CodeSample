@@ -1,0 +1,72 @@
+<div class="institution-background" *ngIf="locations.locations.length && !loading"> <!-- *ngIf="locations.locations?.length && !loading" -->
+  <div class="container d-flex flex-wrap">
+    <div class="institution {{location.locationType | lowercase}}" *ngFor="let location of locations.locations">
+      <ng-container *ngIf="location.locationType == 'Central'">
+        <h2 class="institution-type">Engineering For Kids® Locations - {{locationTypeName}}</h2>
+        <div class="institution-list">
+          <div class="institution-item" *ngFor="let item of location.locations">
+
+            <ng-container *ngIf="item.hasEvents">
+              <a [routerLink]="('/location-' + locationType) | languageAndInstitution" [queryParams]="{ location: item.locationId, term: item.termId }" class="name">
+                <div class="img-holder">
+                  <img src="{{item.locationImageUrl || './assets/location-image.png'}}">
+                </div>
+                <span>{{item.name}}</span>
+              </a>
+            </ng-container>
+
+            <ng-container *ngIf="!item.hasEvents">
+              <a class="name">
+                <div class="img-holder">
+                  <img src="{{item.locationImageUrl || './assets/location-image.png'}}">
+                </div>
+                <span>{{item.name}}</span>
+              </a>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="location.locationType != 'Central'">
+        <h2 class="institution-type">{{location.locationType}}s</h2>
+        <div class="institution-list">
+          <div class="institution-item" *ngFor="let item of location.locations">
+
+            <ng-container *ngIf="item.hasEvents">
+              <a [routerLink]="('/location-' + locationType) | languageAndInstitution" [queryParams]="{ location: item.locationId, term: item.termId }" class="name">
+                {{item.name}}<span class="subline">Register here</span>
+              </a>
+            </ng-container>
+
+            <ng-container *ngIf="!item.hasEvents">
+              <a [href]="item.webSite ? item.webSite : 'javascript:;'" target="_blank" class="name">{{item.name}}</a>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="coming-soon" *ngIf="!locations.locations.length && !loading">
+  Coming soon...
+</div>
+
+<!--<ng-template #programs>-->
+  <!--<div class="institution {{item.locationType | lowercase}}" *ngFor="let item of locations.locations">-->
+    <!--<h2 class="institution-type">{{item.locationType}}</h2>-->
+    <!--<div class="institution-list">-->
+      <!--<div class="institution-item" *ngFor="let item of item.locations">-->
+
+        <!--<ng-container *ngIf="item.webSite === ''">-->
+          <!--<a [routerLink]="'/programs' | languageAndInstitution" [queryParams]="{ location: item.locationId, term: item.termId }" class="name">-->
+            <!--<img src="{{item.image || './assets/location-image.png'}}">-->
+            <!--{{item.name}}-->
+          <!--</a>-->
+        <!--</ng-container>-->
+
+        <!--<ng-container *ngIf="item.webSite !== ''">-->
+          <!--<a href="{{item.webSite}}" target="_blank" class="name">{{item.name}}</a>-->
+        <!--</ng-container>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</ng-template>-->

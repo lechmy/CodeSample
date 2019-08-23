@@ -1,0 +1,21 @@
+<section class="account section">
+  <div class="container" *ngIf="!loading">
+    <ngb-tabset [activeId]="selectedTab">
+      <ngb-tab title="Info" id="tab-info">
+        <ng-template ngbTabContent>
+          <app-account-info [participantExtended]="participantExtended" (participantChanged)="onParticipantExtendedChanged($event)"></app-account-info>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Children" id="tab-children">
+        <ng-template ngbTabContent>
+          <app-account-children [participantExtended]="participantExtended" (participantChanged)="onParticipantExtendedChanged($event)"></app-account-children>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Events" id="tab-events">
+        <ng-template ngbTabContent>
+          <app-account-events [participantExtended]="participantExtended" [enrollments]="enrollments" (enrollmentsChanged)="onEnrollmentsChanged($event)"></app-account-events>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+<section class="camps section">
+  <div class="container" *ngIf="!loading">
+    <h2 class="page-title">Camps</h2>
+    <h3 class="page-subtitle">{{campEventsDto.location}}</h3>
+
+    <app-camp *ngFor="let term of campEventsDto.eventsGroupByTerm" [term]="term" [currencySign]="currencySign"></app-camp>
+  </div>
+</section>
+
+
+<!--<app-camp *ngFor="let weekAgeEvents of weekEvents.eventsGroupByAgeCamp" [events]="weekAgeEvents"></app-camp>-->

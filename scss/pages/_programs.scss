@@ -1,0 +1,205 @@
+.tab-container {
+  display: block;
+}
+
+.program-calendar {
+  margin: 16px 0;
+  @media (max-width: 767px) {
+    overflow: auto;
+  }
+  &>button{
+    display: block;
+    width: 50%;
+    margin: 0 auto 8px auto;
+  }
+  .calendar{
+    //display: none;
+    max-height: 0;
+    transition: max-height $time;
+    overflow-x: auto;
+    &.active{
+      //display: block;
+      max-height: 1000px;
+    }
+  }
+  .calendar-event {
+    .cal-event {
+      line-height: 16px;
+      .cal-event-title {
+        white-space: normal;
+      }
+    }
+  }
+  .cal-week-view{
+    @media (max-width: 767px) {
+      width: 690px;
+    }
+  }
+  .junior-event{
+    .cal-event {
+      background-color: lighten( $junior-color, 60% );
+      border-color: $junior-color;
+      color: $junior-color;
+    }
+  }
+  .apprentice-event{
+    .cal-event {
+      background-color: lighten( $apprentice-color, 40% );
+      border-color: $apprentice-color;
+      color: $apprentice-color;
+    }
+  }
+  .master-event{
+    .cal-event {
+      background-color: lighten( $master-color, 52% );
+      border-color: $master-color;
+      color: $master-color;
+    }
+  }
+}
+
+.program-description{
+  color: $primary;
+  text-align: center;
+}
+
+.program {
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid $gray-dark;
+  text-align: center;
+  @media (max-width: 991px) {
+    padding-bottom: 24px;
+    font-size: 14px;
+  }
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  img {
+    width: 100%;
+  }
+  .program-title {
+    margin: 0 0 8px 0;
+    font-size: 24px;
+    @media (max-width: 767px) {
+      font-size: 18px;
+    }
+  }
+  .program-subtitle {
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+  .program-events-group {
+    display: inline-block;
+    width: 50%;
+    margin-top: 8px;
+    padding: 0 8px;
+    border-right: 1px solid $gray;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &.select{
+      animation: blink 1s 0.5s forwards;
+    }
+
+    @media(max-width: 767px){
+      display: block;
+      width: 100%;
+      border-top: 1px solid $gray;
+      padding: 8px 0 0 0;
+      border-right: none;
+    }
+
+    p{
+      margin-bottom: 0;
+    }
+
+    .program-date {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .program-time {
+      color: $primary;
+      font-weight: 700;
+    }
+
+    .program-old-price{
+      text-decoration: line-through;
+    }
+
+    .program-new-price{
+      margin-left: 5px;
+      color: $primary;
+      font-weight: 700;
+    }
+
+    .program-controls {
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+      @media(max-width: 767px) {
+        flex-direction: column;
+      }
+      .single-program {
+        position: relative;
+        flex-grow: 1;
+        padding: 0 2px;
+
+        &:first-child{
+          padding-left: 4px;
+        }
+
+        &:last-child{
+          padding-right: 4px;
+        }
+
+        @media(max-width: 767px) {
+          margin-bottom: 16px;
+          &:first-child{
+            padding: 0;
+          }
+
+          &:last-child{
+            padding: 0;
+            margin-bottom: 0;
+          }
+        }
+
+        &>*{
+          display: block;
+          margin-bottom: 4px;
+        }
+
+        strong{
+          &.booked{
+            max-width: 50%;
+            margin: 0 auto;
+            border: 2px solid $primary;
+            border-radius: 4px;
+            color: $primary;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes blink {
+  0%{
+    background-color: transparent;
+  }
+  33%{
+    background-color: rgba($primary, 0.2);
+  }
+  66%{
+    background-color: transparent;
+  }
+  100%{
+    background-color: rgba($primary, 0.2);
+  }
+}

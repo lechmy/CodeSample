@@ -1,0 +1,73 @@
+@mixin active{
+  padding: 12px;
+  color: $white;
+  font-size: 16px;
+  z-index: $info-z;
+  @include transition((font-size $time, color $time $time));
+
+  &:after {
+    display: none;
+  }
+}
+
+.info-holder {
+    position: relative;
+}
+.info-bubble {
+    position: absolute;
+    top: 0;
+    right: 0;
+    //max-width: 80%;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: $primary;
+    color: $primary;
+    font-size: 0;
+    @include transition((font-size $time, color 0s));
+
+    &>span{
+      display: block;
+    }
+
+    &:hover {
+      @include active();
+    }
+
+    @media(max-width: 1023px){
+      &:focus {
+        @include active();
+      }
+    }
+
+    &:after {
+        content: '?';
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        width: 16px;
+        height: 16px;
+        color: $white;
+        font-size: 14px;
+        text-align: center;
+        line-height: 16px;
+        cursor: default;
+    }
+
+  &:empty{
+    display: none;
+  }
+
+  &.discount{
+    padding: 12px;
+    border-radius: 12px;
+
+    &:after{
+      content: '%';
+      width: 24px;
+      height: 24px;
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+}

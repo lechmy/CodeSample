@@ -1,0 +1,46 @@
+<ng-container *ngIf="enrollments && enrollments.length > 0">
+
+  <div class="event-container" *ngFor="let enrollment of enrollments">
+    <div  class="event">
+      <div class="age-group {{enrollment.courseAge.toLowerCase()}}"></div>
+      <div class="info">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6">
+            <strong>{{enrollment.courseName}}</strong>
+            <strong>Course: {{enrollment.courseGroup}}</strong>
+            <strong>Child: {{enrollment.childFullName}}</strong>
+          </div>
+          <div class="col-12 col-md-6">
+            <p>Language: {{enrollment.language}}</p>
+            <p>Status: {{enrollment.status}}</p>
+            <p>Is Paid: {{enrollment.isPaid ? 'Yes' : 'No'}}</p>
+            <p>Price: {{currencySign}}{{enrollment.price}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="control">
+        <button type="button" class="btn btn-warning btn-block" (click)="setEnrollment(content, enrollment)" *ngIf="enrollment.status !== 'Canceled'" [disabled]="isBusy">Cancel</button>
+        <button type="button" class="btn btn-primary btn-block" (click)="togglePayment($event, enrollment.enrollmentId)" *ngIf="!enrollment.isPaid && enrollment.status !== 'Canceled' && isStripeActive" [disabled]="isBusy">
+          {{paymentId == enrollment.enrollmentId ? "Close" : "Pay"}}
+        </button>
+      </div>
+    </div>
+    <app-payment [enrollmentId]="enrollment.enrollmentId" (paymentFinished)="refreshList()" *ngIf="paymentId == enrollment.enrollmentId"></app-payment>
+  </div>
+</ng-container>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Canceling enrollment</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to cancel enrollment?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss()">Don't cancel</button>
+    <button type="button" class="btn btn-success" (click)="modal.close(cancelEnrollment())" ngbAutofocus>Ok</button>
+  </div>
+</ng-template>

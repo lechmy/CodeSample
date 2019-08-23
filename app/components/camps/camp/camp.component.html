@@ -1,0 +1,33 @@
+<div class="term-group">
+  <p class="term-name">{{term.termName}}</p>
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+      <div class="term-description" [ngClass]="{'active': isDescriptionCollapsed}" *ngIf="term.campDescription">
+        <p class="title" (click)="collapseDescription()">Important information</p>
+        <div class="content" [innerHTML]="term.campDescription | rawHtml"></div>
+      </div>
+    </div>
+  </div>
+  <div class="term-termin-group" *ngFor="let weekEvents of term.eventsGroupByWeekCamp">
+    <h3 class="time">{{weekEvents.weekInfo}}</h3>
+    <ngb-accordion #acc="ngbAccordion" [closeOthers]="true" class="collapsible">
+
+      <ngb-panel *ngFor="let ageGroup of weekEvents.eventsGroupByAgeCamp" [id]="ageGroup.campNames">
+        <ng-template ngbPanelTitle>
+          <p class="title {{ageGroup.age | lowercase}}-bg">{{ageGroup.campNames}}</p>
+        </ng-template>
+        <ng-template ngbPanelContent>
+
+          <div *ngFor="let eventType of ageGroup.eventsGroupByStartTimeCamp" class="events-container">
+            <div [innerHTML]="eventType.description | rawHtml" class="events-description {{ageGroup.age | lowercase}}-bg"></div>
+            <div class="available-events">
+              <div class="event" *ngFor="let eventTypeGroup of eventType.events">
+                <app-camp-event-day-group [event]="eventTypeGroup" [currencySign]="currencySign"></app-camp-event-day-group>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+</div>

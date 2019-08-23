@@ -1,0 +1,61 @@
+<h2 class="title">{{event.title}}</h2>
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <div class="row">
+          <div class="col-12">
+            <div class="event-detail">
+              <p class="label">Name</p>
+              <p class="value">{{event.courseName}}</p>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="event-detail">
+              <p class="label">Address</p>
+              <p class="value">{{event.locationAddress}}</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="event-detail">
+              <p class="label">Language</p>
+              <p class="value">{{event.language}}</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="event-detail">
+              <p class="label">Price</p>
+              <p class="value">{{currencySign}}{{event.price}}</p>
+            </div>
+          </div>
+          <div *ngIf="event.eventDiscounts.length" class="col-12">
+            <div class="event-detail">
+              <p class="label">Discounts</p>
+              <p class="value">
+                <span *ngFor="let discount of event.eventDiscounts">{{discount.discountInfo}}</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="event-detail">
+          <p class="label">Date{{event.eventDays.length > 1 ? 's' : ''}}</p>
+          <p class="value" [innerHtml]="event.dayInfo | rawHtml"></p>
+          <p class="value">
+            <ng-container *ngIf="event.campOnlyWeekly">
+                  <span *ngFor="let day of event.eventDays">
+                    {{day.date | date}}
+                  </span>
+            </ng-container>
+            <ng-container *ngIf="!event.campOnlyWeekly">
+                  <span *ngFor="let day of event.eventDays">
+                    {{day.fullTerminInfo}}
+                  </span>
+            </ng-container>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

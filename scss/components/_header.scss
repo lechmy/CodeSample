@@ -1,0 +1,183 @@
+header{
+    $collapse-point: 992px;
+    $height: 80px;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: $height;
+    padding: 0 20px;
+    border-bottom: 1px solid $primary;
+    background-color: $white;
+    z-index: $nav-z;
+    @media(max-width: 575px){
+      padding: 0 10px;
+    }
+    .logo {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        @media (max-width: 575px) {
+          max-width: 50%;
+        }
+        img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+    }
+
+    nav {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-self: stretch;
+        flex-grow: 1;
+        margin-left: 16px;
+        @media (max-width: $collapse-point) {
+          display: none;
+          position: absolute;
+          flex-flow: column;
+          top: $height;
+          left: 0;
+          width: 100%;
+          margin: 0;
+          border-top: 1px solid $primary;
+          border-bottom: 1px solid $primary;
+          background-color: $primary;
+        }
+        &.active{
+          @media (max-width: $collapse-point) {
+              display: flex;
+          }
+        }
+
+        a{
+          display: flex;
+          align-items: center;
+          padding: 20px 10px;
+          text-align: center;
+          white-space: nowrap;
+          &:hover{
+              background-color: $primary;
+              color: $white;
+          }
+
+          @media(max-width: $collapse-point) {
+            padding: 10px 20px;
+            color: $white;
+            &:hover{
+              background-color: $white;
+              color: $primary;
+            }
+          }
+        }
+        .left{
+          display: flex;
+          @media(max-width: $collapse-point) {
+            flex-flow: column;
+            align-items: flex-start;
+          }
+          a{
+            @media(max-width: $collapse-point) {
+              width: 100%;
+            }
+          }
+        }
+        .right{
+          display: flex;
+          flex-direction: column;
+          @media(max-width: $collapse-point) {
+            border-top: 1px solid $white;
+            justify-content: space-between;
+          }
+          &>div{
+            display: flex;
+            justify-content: flex-end;
+          }
+          a{
+            padding: 8px 12px;
+          }
+        }
+    }
+
+    .btn-menu {
+        display: block;
+        position: relative;
+        height: 50px;
+        border: none;
+        padding: 0 10px;
+        background-color: transparent;
+        float: left;
+        color: $primary;
+        font-weight: 700;
+        text-transform: uppercase;
+        white-space: nowrap;
+        cursor: pointer;
+        @include transition((background-color $time, color $time));
+
+        @media (min-width: $collapse-point) {
+            display: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        & > span {
+            display: inline-block;
+            vertical-align: middle;
+            &:first-child{
+              margin-right: 10px;
+            }
+        }
+
+        $x: 8px;
+
+        & > .sign {
+            position: relative;
+            height: 3px;
+            width: 25px;
+            background-color: $primary;
+            @include transition(all $time);
+
+            &:after,
+            &:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background-color: $primary;
+                @include transition(all $time);
+            }
+
+            &:before {
+                top: -$x;
+            }
+
+            &:after {
+                top: $x;
+            }
+        }
+
+        &.active {
+          & > .sign {
+            background-color: transparent;
+            &:before {
+              top: 0;
+              transform-origin: center center;
+              transform: rotate(220deg);
+            }
+
+            &:after {
+              top: 0;
+              transform-origin: center center;
+              transform: rotate(-220deg);
+            }
+          }
+        }
+    }
+}

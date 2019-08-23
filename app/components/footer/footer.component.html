@@ -1,0 +1,3 @@
+<footer>
+  <a *ngFor="let link of footerLinks" [routerLink]="['/static-page', link.slug]  | languageAndInstitution" target="_blank">{{link.title}}</a>
+</footer>

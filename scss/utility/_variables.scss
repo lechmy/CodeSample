@@ -1,0 +1,31 @@
+$assetsPath: '..';
+
+$white: #fff;
+$black: #000;
+$gray: #eee;
+$gray-light: #f5f5f5;
+$gray-dark: #c0c0c0;
+
+$primary: #b6121c;
+$primary-dark: #7d0e14;
+$secondary: #8dc63f;
+$secondary-dark: #5b7f29;
+
+$success: #23b10a;
+$error: #b10d02;
+
+$payment: #0255af;
+
+$junior-color: #7d9c00;
+$apprentice-color: #f0652d;
+$master-color: #bf0000;
+
+$disabled: lighten($primary, 30%);
+$disabled-gray: lighten($gray, 30%);
+
+$z-index: 1000;
+$info-z: $z-index + 1;
+$nav-z: $z-index + 9;
+$loader-z: $z-index + 10;
+
+$time: 0.3s;

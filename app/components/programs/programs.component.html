@@ -1,0 +1,23 @@
+<section class="programs section">
+  <div class="container" *ngIf="!loading">
+    <h2 class="page-title">Programs</h2>
+    <h3 class="page-subtitle">{{classEventsDto.location}}</h3>
+    <div class="tabs">
+      <a *ngFor="let term of classEventsDto.terms"
+         [routerLink]="'/location-class' | languageAndInstitution"
+         [queryParams]="{ location: classEventsModel.locationId, term: term.termId }"
+         [ngClass]="{'active': selectedTabId == term.termId}"
+         class="tab">{{term.name}}</a>
+    </div>
+    <ng-container *ngFor="let term of classEventsDto.terms">
+      <div class="tab-container" *ngIf="selectedTabId == term.termId">
+        <app-programs-calendar [eventModel]="classEventsModel" (scrollToElem)="scrollToElement($event)"></app-programs-calendar>
+        <div class="program-description">
+          <p>{{term.info}}</p>
+          <p>{{term.infoWarning}}</p>
+        </div>
+        <app-program [events]="classEventsDto.events" [currencySign]="currencySign" (setElement)="setElement($event)"></app-program>
+      </div>
+    </ng-container>
+  </div>
+</section>

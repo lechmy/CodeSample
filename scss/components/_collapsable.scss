@@ -1,0 +1,75 @@
+.collapsible{
+  margin-bottom: 10px;
+
+  .card{
+    border: none;
+    &:last-child{
+      .card-body{
+        border-radius: 0 0 4px 4px;
+      }
+    }
+  }
+
+  .card-header{
+    padding: 0;
+    border: none;
+  }
+
+  .card-body{
+    border: 1px solid $gray;
+    padding: 12px;
+  }
+
+  button.btn{
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    text-align: left;
+    &.collapsed{
+      .title{
+        &:before{
+          content: '\f0fe';
+        }
+      }
+    }
+    &:hover,
+    &:focus{
+      text-decoration: none;
+    }
+  }
+
+  .title{
+    display: block;
+    margin: 0;
+    color: $white;
+    font-size: 24px;
+    padding: 10px 15px;
+    cursor: pointer;
+    @include no-select;
+
+    @media (max-width: 767px) {
+      font-size: 18px;
+    }
+
+    &:before{
+      font-family: 'Font Awesome 5 Free';
+      content: '\f146';
+      font-weight: 900;
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: top;
+    }
+
+    &.junior-bg {
+      background-color: $junior-color;
+    }
+    &.apprentice-bg {
+      background-color: $apprentice-color;
+    }
+    &.master-bg {
+      background-color: $master-color;
+    }
+  }
+}

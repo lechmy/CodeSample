@@ -1,0 +1,13 @@
+<div class="program-calendar">
+  <button class="btn-regular" (click)="collapseCalendar()">Timetable</button>
+  <div class="calendar" [ngClass]="{'active': showCalendar}">
+    <mwl-calendar-week-view
+      [viewDate]="calendarOpt.viewDate"
+      [events]="calendarOpt.events"
+      [dayStartHour]="calendarOpt.dayStartHour"
+      [dayEndHour]="calendarOpt.dayEndHour"
+      [weekStartsOn]="calendarOpt.weekStartsOn"
+      (eventClicked)="handleEvent($event.event.meta)">
+    </mwl-calendar-week-view>
+  </div>
+</div>

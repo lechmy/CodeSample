@@ -1,0 +1,58 @@
+<section class="section">
+  <div class="container" *ngIf="!loading">
+    <h2 class="page-title">Workshops</h2>
+    <h3 class="page-subtitle">{{workshopEvents.location}}</h3>
+    <div class="workshop-list">
+      <div *ngFor="let event of workshopEvents.events" class="workshop-event">
+        <p class="date-range">{{event.weekInfo}}</p>
+        <div *ngFor="let eventByDate of event.eventsByDate" class="workshop-event-item">
+          <div class="row">
+            <div class="col-12 col-md-1">
+              <div class="date">
+                <p>{{eventByDate.startDate | date: 'dd'}}</p>
+                <p>{{eventByDate.startDate | date: 'EEE'}}</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-11">
+              <div *ngFor="let eventByStartTime of eventByDate.eventsByStartTime" class="row">
+                <div class="col-12 col-md-8">
+                  <div class="workshop-info {{eventByStartTime.courseType | lowercase}}-bg">
+                    <p class="title">{{eventByStartTime.courseName}}</p>
+                    <p class="description">{{eventByStartTime.eventName}}</p>
+                    <div class="content" [innerHTML]="eventByStartTime.eventDescription | rawHtml"></div>
+                    <p class="time">{{eventByStartTime.startTime}} - {{eventByStartTime.endTime}}</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4">
+                  <div class="workshop-language">
+                    <div *ngFor="let eventInfo of eventByStartTime.events" class="item">
+                      <ng-container *ngIf="eventInfo.freePlace >= 1">
+                        <strong>Free places: {{eventInfo.freePlace}}</strong>
+                        <span>Price: {{currencySign}}{{eventInfo.price}}</span>
+                        <span>{{eventInfo.language}}</span>
+                        <a [routerLink]="['/event', eventInfo.eventId] | languageAndInstitution"
+                           [ngClass]="{'disabled': !eventInfo.isBookable}"
+                           class="btn btn-regular-alt">Book</a>
+                      </ng-container>
+                      <ng-container *ngIf="eventInfo.freePlace < 1">
+                        <strong class="booked">Booked out!</strong>
+                        <span>{{eventInfo.language}}</span>
+                        <a [routerLink]="['/event', eventInfo.eventId] | languageAndInstitution"
+                           [ngClass]="{'disabled': !eventInfo.isBookable}"
+                           class="btn btn-regular">Waiting list</a>
+                      </ng-container>
+                      <div *ngIf="eventInfo.eventDiscounts.length" class="info-bubble discount">
+                        <span *ngFor="let discount of eventInfo.eventDiscounts">{{discount.discountInfo}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,27 @@
+<div class="login">
+  <form class="form" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" novalidate>
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-6">
+        <div *ngIf="invalidLogin" class="alert alert-danger" role="alert">
+          Invalid email or password.
+        </div>
+        <div class="inputgroup">
+          <label>Email *</label>
+          <input type="text" name="email" formControlName="email">
+          <div *ngIf="validator.email?.invalid" class="validation-message">
+            <span>Email is required</span>
+          </div>
+        </div>
+        <div class="inputgroup">
+          <label>Password *</label>
+          <input type="password" name="password" formControlName="password">
+          <div *ngIf="validator.password?.invalid" class="validation-message">
+            <span>Password is required</span>
+          </div>
+        </div>
+        <button [disabled]="disableControls" type="submit" class="btn-regular-alt btn-block">Login</button>
+        <button type="button" class="btn btn-link mt-2" (click)="onPasswordForget()">Forgot Password?</button>
+      </div>
+    </div>
+  </form>
+</div>

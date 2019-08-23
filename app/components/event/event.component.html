@@ -1,0 +1,57 @@
+<section class="event section">
+  <div class="container" *ngIf="!loading">
+
+    <app-event-birthday-details *ngIf="isBirthday" [birthdayEvent]="event" [currencySign]="currencySign"></app-event-birthday-details>
+    <app-event-details *ngIf="!isBirthday" [event]="event" [currencySign]="currencySign"></app-event-details>
+
+    <ng-container *ngIf="!userLoggedIn && !userRegistered">
+      <div class="user-controls" #controls>
+        <button class="btn btn-regular" (click)="selectArea('login')">Login</button>
+        <span>OR</span>
+        <button class="btn btn-regular" (click)="selectArea('register')">Register</button>
+      </div>
+
+      <ng-container *ngIf="selectedArea == 'login'">
+        <app-event-login></app-event-login>
+      </ng-container>
+      <ng-container *ngIf="selectedArea == 'register'">
+        <app-event-register [event]="event" [eventDayIds]="eventDayIds" [currencySign]="currencySign" (userRegistered)="onUserRegister($event)"></app-event-register>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="userLoggedIn && !userRegistered">
+      <!--<app-event-user-info [participant]="participant" [event]="event" [eventDayIds]="eventModel.eventDayIds" [currencySign]="currencySign"></app-event-user-info>-->
+      <app-event-user-info [participant]="participant"
+                           [event]="event"
+                           [eventDayIds]="eventDayIds"
+                           [currencySign]="currencySign"
+                           [isBirthday]="isBirthday"
+                           [birthdayPackageId]="birthdayEventModel.birthdayPackageId"
+                           [birthdayExtraIds]="birthdayEventModel.birthdayExtraIds">
+
+      </app-event-user-info>
+    </ng-container>
+
+    <ng-container *ngIf="userRegistered">
+      <div class="finished-enrollment">
+        <div class="icon"></div>
+        <h2 class="enrollment-title">Thank you</h2>
+        <h2 class="enrollment-subtitle">You have registered successfully</h2>
+        <div class="server-response">
+          <span *ngFor="let response of enrollmentResult.alreadyRegisterInfo" class="text-danger">{{response}}</span>
+          <span *ngFor="let response of enrollmentResult.successfullInfo" class="text-success">{{response}}</span>
+          <span *ngFor="let response of enrollmentResult.waitingListInfo" class="text-warning">{{response}}</span>
+        </div>
+        <p *ngIf="enrollmentResult.successfullInfo.length" class="enrollment-text">
+          The confirmation message with program details and invoice with payment instructions has been sent to your email.<br>
+          (Please check your SPAM folder in case the message is missing)
+        </p>
+        <div class="text-center">
+          <button class="btn-regular" (click)="goBack()">Go back</button>&nbsp;
+          <a [routerLink]="['/account'] | languageAndInstitution" fragment="events" *ngIf="isStripeActive" class="btn btn-primary">Pay online</a>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</section>

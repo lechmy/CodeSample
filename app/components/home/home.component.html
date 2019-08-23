@@ -1,0 +1,18 @@
+<section class="section">
+  <div class="container" *ngIf="!loading">
+    <h2 class="home-title">Welcome to EFK <span class="text-capitalize">{{institutionName}}</span></h2>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3" *ngFor="let item of courses">
+        <div class="hero-menu-item">
+          <a [routerLink]="['/location', item.courseGroup.toLowerCase()] | languageAndInstitution" class="title">
+            <div class="image-holder">
+              <img src="{{item.courseImageUrl}}">
+            </div>
+            <span>{{item.name}}</span>
+          </a>
+          <div class="text" [innerHtml]="item.description | rawHtml"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

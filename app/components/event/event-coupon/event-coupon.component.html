@@ -1,0 +1,14 @@
+<div [formGroup]="couponForm">
+  <div class="inputgroup inline-controls">
+    <label for="coupon">Coupon</label>
+    <input type="text" id="coupon" name="coupon" formControlName="coupon">
+    <button *ngIf="!couponValid" (click)="validateCoupon()" [disabled]="isBusy" type="button" class="btn-regular add-on">Validate</button>
+    <button *ngIf="couponValid" type="button" class="btn-regular-alt add-on"><i class="fas fa-check"></i></button>
+    <div *ngIf="validator.coupon?.invalid" class="validation-message">
+      <span>Please fill coupon field</span>
+    </div>
+    <div [hidden]="couponValid || couponValid == null" class="validation-message">
+      <span>Invalid coupon code</span>
+    </div>
+  </div>
+</div>

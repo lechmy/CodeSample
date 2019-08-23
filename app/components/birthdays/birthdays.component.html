@@ -1,0 +1,155 @@
+<section class="birthdays section">
+  <div class="container" *ngIf="!loading">
+    <h2 class="page-title">Birthday Party</h2>
+    <h3 class="page-subtitle">{{birthdayEvents.location}}</h3>
+    <div class="birthday-timetable">
+      <button (click)="scroll('left')"><i class="fas fa-chevron-left"></i></button>
+      <div #timetable class="timetable">
+
+        <div *ngFor="let event of birthdayEvents.eventsGroupByDate" class="item">
+          <p class="date">{{event.date}}</p>
+          <div *ngFor="let day of event.eventDays"
+               (click)="selectTime(day, event.isBookable)"
+               [ngClass]="{'disabled': day.isTerminOccupied || !event.isBookable, 'selected': selectedTimeId === day.eventDayId}"
+               class="time">
+            {{day.name}}
+          </div>
+        </div>
+      </div>
+      <button (click)="scroll('right')"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <form [formGroup]="birthdayForm" (ngSubmit)="submitForm()">
+    <div class="birthday-details">
+      <p class="title">Birthday details</p>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+          <div class="inputgroup">
+            <label>Birthday Package *</label>
+            <div class="select-wrapper">
+              <select id="birthdayPackage" name="birthdayPackage" formControlName="birthdayPackage" (change)="selectPackage(birthdayPackage.value)">
+                <option [ngValue]="null"></option>
+                <option *ngFor="let opt of birthdayEvents.birthdayPackages" [ngValue]="opt.birthdayExtrasId">{{opt.name}} ({{opt.price}}{{currencySign}})</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+            </div>
+
+            <ng-container *ngFor="let description of birthdayEvents.birthdayPackages">
+              <div class="package-description" *ngIf="description.birthdayExtrasId == birthdayPackage.value" [innerHTML]="description.description | rawHtml"></div>
+            </ng-container>
+            <div class="validation-message" *ngIf="validator.birthdayPackage?.invalid">
+              <span>This field is required</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="inputgroup">
+            <label>Birthday Activity *</label>
+            <div class="select-wrapper">
+              <select id="birthdayActivity" name="birthdayActivity" formControlName="birthdayActivity">
+                <option [ngValue]="null"></option>
+                <optgroup label="Junior">
+
+                  <ng-container *ngFor="let opt of birthdayEvents.birthdayActivities">
+                    <option *ngIf="opt.type == 'Junior'" [ngValue]="opt.birthdayActivityId">{{opt.name}}</option>
+                  </ng-container>
+                </optgroup>
+                <optgroup label="Apprentice">
+
+                  <ng-container *ngFor="let opt of birthdayEvents.birthdayActivities">
+                    <option *ngIf="opt.type == 'Apprentice'" [ngValue]="opt.birthdayActivityId">{{opt.name}}</option>
+                  </ng-container>
+                </optgroup>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+            </div>
+
+            <ng-container *ngFor="let description of birthdayEvents.birthdayActivities">
+              <div class="package-description" *ngIf="description.birthdayActivityId == birthdayActivity.value" [innerHTML]="description.description | rawHtml"></div>
+            </ng-container>
+            <div class="validation-message" *ngIf="validator.birthdayActivity?.invalid">
+              <span>This field is required</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-3">
+          <div class="inputgroup">
+            <label>Average Age *</label>
+            <div class="select-wrapper">
+              <select id="averageAge" name="averageAge" formControlName="averageAge">
+                <option [ngValue]="null"></option>
+                <option *ngFor="let opt of averageAge" [ngValue]="opt">{{opt}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+            </div>
+            <div class="validation-message" *ngIf="validator.averageAge?.invalid">
+              <span>This field is required</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="inputgroup">
+            <label>Additional number of children</label>
+            <div class="select-wrapper">
+              <select id="additionalChildren" name="additionalChildren" formControlName="additionalChildren">
+                <option [ngValue]="null"></option>
+                <option *ngFor="let opt of additionalChildren" [ngValue]="opt">{{opt}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="inputgroup">
+            <label>Are parents welcome?</label>
+            <div class="select-wrapper">
+              <select id="parentsWelcome" name="parentsWelcome" formControlName="parentsWelcome">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="true">Yes</option>
+                <option [ngValue]="false">No</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="inputgroup">
+            <label>Language</label>
+            <div class="select-wrapper">
+              <select id="language" name="language" formControlName="language">
+                <!--<option *ngFor="let opt of birthdayEvents" [ngValue]="opt.name">{{opt.name}}</option>-->
+                <option value="null"></option>
+                <option value="german">German</option>
+                <option value="english">English</option>
+                <option value="french">French</option>
+                <option value="spanish">Spanish</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="birthday-extras">
+      <p class="title">Birthday Extras</p>
+      <div *ngFor="let extra of birthdayEvents.birthdayExtras" class="extras-item">
+        <div class="checkbox">
+          <input id="{{extra.birthdayExtrasId}}" type="checkbox" [value]="extra.birthdayExtrasId" (click)="selectExtras(extra)">
+          <label for="{{extra.birthdayExtrasId}}">{{extra.name}} ( {{currencySign}}{{extra.price}} )</label>
+        </div>
+        <div class="info-bubble">{{extra.description}}</div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-3">
+        <p>Estimated total price: <strong>{{currencySign}}{{totalBirthdayPrice}}</strong></p>
+        <button type="submit" class="btn-regular-alt btn-block">Book</button>
+        <div class="validation-message" *ngIf="isTimeInvalid">
+          <span>Please select time of party</span>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+</section>

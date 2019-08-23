@@ -1,0 +1,28 @@
+.tabs{
+  display: flex;
+  margin-bottom: 4px;
+  border-bottom: 3px solid $secondary;
+  @media (max-width: 767px){
+    flex-direction: column;
+  }
+  .tab{
+    flex-grow: 1;
+    padding: 8px 12px;
+    background-color: $white;
+    color: $secondary;
+    font-size: 20px;
+    text-align: center;
+    @media (max-width: 767px){
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+    &.active{
+      background-color: $secondary;
+      color: $white;
+      border-radius: 4px 4px 0 0;
+      @media (max-width: 767px) {
+        border-radius: 0;
+      }
+    }
+  }
+}

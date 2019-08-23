@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~noty/src/noty";
+@import "~noty/src/themes/relax";
+@import "~noty/src/themes/metroui";
+@import "~noty/src/themes/mint";
+@import "~noty/src/themes/sunset";
+@import "~noty/src/themes/bootstrap-v3";
+@import "~noty/src/themes/bootstrap-v4";
+@import "~noty/src/themes/semanticui";
+@import "~noty/src/themes/nest";
+@import "~noty/src/themes/light";
+
+
+@import "~bootstrap/scss/bootstrap";
+
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+
+@import "~angular-calendar/css/angular-calendar.css";
+
+@import "./scss/main.scss";

@@ -1,0 +1,198 @@
+<div *ngIf="participantExtended">
+  <div>
+    <form [formGroup]="childParticipantsForm" (ngSubmit)="onSubmit()">
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-6">
+          <div class="inputgroup">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" formControlName="firstName" appServerValidator="firstName" [formKey]="childParticipantsFormKey">
+            <div class="validation-message">
+              <ng-container *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+                <!-- Server errors -->
+                <ng-container *ngIf="firstName.errors.server">
+                  <span *ngFor="let error of firstName.errors.server">{{error}}</span>
+                </ng-container>
+                <span *ngIf="firstName.errors.required">Field is required.</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="inputgroup">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" formControlName="lastName" appServerValidator="lastName" [formKey]="childParticipantsFormKey">
+            <div class="validation-message">
+              <ng-container *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+                <!-- Server errors -->
+                <ng-container *ngIf="lastName.errors.server">
+                  <span *ngFor="let error of lastName.errors.server">{{error}}</span>
+                </ng-container>
+                <span *ngIf="lastName.errors.required">Field is required.</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="inputgroup">
+            <label for="languageSpoken">Language Spoken *</label>
+            <div class="select-wrapper">
+              <select id="languageSpoken" formControlName="languageSpoken" appServerValidator="languageSpoken" [formKey]="childParticipantsFormKey">
+                <option [ngValue]="null"></option>
+                <option *ngFor="let value of languageSpokenValues" [ngValue]="value">{{value}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+            </div>
+            <div class="validation-message">
+              <ng-container *ngIf="languageSpoken.invalid && (languageSpoken.dirty || languageSpoken.touched)">
+                <!-- Server errors -->
+                <ng-container *ngIf="languageSpoken.errors.server">
+                  <span *ngFor="let error of languageSpoken.errors.server">{{error}}</span>
+                </ng-container>
+                <span *ngIf="languageSpoken.errors.required">Field is required.</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="inputgroup">
+            <label for="gender">Gender *</label>
+            <div class="select-wrapper">
+              <select id="gender" formControlName="gender" appServerValidator="gender" [formKey]="childParticipantsFormKey">
+                <option [ngValue]="null"></option>
+                <option *ngFor="let value of genderValues" [ngValue]="value">{{value}}</option>
+              </select>
+              <i class="fas fa-chevron-down carrot"></i>
+            </div>
+            <div class="validation-message">
+              <ng-container *ngIf="gender.invalid && (gender.dirty || gender.touched)">
+                <!-- Server errors -->
+                <ng-container *ngIf="gender.errors.server">
+                  <span *ngFor="let error of gender.errors.server">{{error}}</span>
+                </ng-container>
+                <span *ngIf="gender.errors.required">Field is required.</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-8">
+          <div class="inputgroup">
+            <div class="row">
+              <div class="col-12 col-sm-4">
+                <label for="birthDay">Birth Day *</label>
+                <div class="select-wrapper">
+                  <select id="birthDay" formControlName="birthDay" appServerValidator="birthDay" [formKey]="childParticipantsFormKey">
+                    <option [ngValue]="null"></option>
+                    <option *ngFor="let day of dropdownDate.day" [ngValue]="day">{{day}}</option>
+                  </select>
+                  <i class="fas fa-chevron-down carrot"></i>
+                </div>
+                <div class="validation-message">
+                  <ng-container *ngIf="birthDay.invalid && (birthDay.dirty || birthDay.touched)">
+                    <!-- Server errors -->
+                    <ng-container *ngIf="birthDay.errors.server">
+                      <span *ngFor="let error of birthDay.errors.server">{{error}}</span>
+                    </ng-container>
+                    <span *ngIf="birthDay.errors.required">Field is required.</span>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <label for="birthMonth">Birth Month *</label>
+                <div class="select-wrapper">
+                  <select id="birthMonth" formControlName="birthMonth" appServerValidator="birthMonth" [formKey]="childParticipantsFormKey">
+                    <option [ngValue]="null"></option>
+                    <option *ngFor="let month of dropdownDate.month" [ngValue]="month">{{month}}</option>
+                  </select>
+                  <i class="fas fa-chevron-down carrot"></i>
+                </div>
+                <div class="validation-message">
+                  <ng-container *ngIf="birthMonth.invalid && (birthMonth.dirty || birthMonth.touched)">
+                    <!-- Server errors -->
+                    <ng-container *ngIf="birthMonth.errors.server">
+                      <span *ngFor="let error of birthMonth.errors.server">{{error}}</span>
+                    </ng-container>
+                    <span *ngIf="birthMonth.errors.required">Field is required.</span>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-12 col-sm-4">
+                <label for="birthYear">Birth Year *</label>
+                <div class="select-wrapper">
+                  <select id="birthYear" formControlName="birthYear" appServerValidator="birthYear" [formKey]="childParticipantsFormKey">
+                    <option [ngValue]="null"></option>
+                    <option *ngFor="let year of dropdownDate.year" [ngValue]="year">{{year}}</option>
+                  </select>
+                  <i class="fas fa-chevron-down carrot"></i>
+                </div>
+                <div class="validation-message">
+                  <ng-container *ngIf="birthYear.invalid && (birthYear.dirty || birthYear.touched)">
+                    <!-- Server errors -->
+                    <ng-container *ngIf="birthYear.errors.server">
+                      <span *ngFor="let error of birthYear.errors.server">{{error}}</span>
+                    </ng-container>
+                    <span *ngIf="birthYear.errors.required">Field is required.</span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="isBirthDayInvalid" class="validation-message">
+              <span>Invalid birth date</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-8">
+          <div class="inputgroup">
+            <label for="note">Note</label>
+            <textarea id="note" rows="3" formControlName="note" appServerValidator="note" [formKey]="childParticipantsFormKey"></textarea>
+            <div class="validation-message">
+              <ng-container *ngIf="note.invalid && (note.dirty || note.touched)">
+                <!-- Server errors -->
+                <ng-container *ngIf="note.errors.server">
+                  <span *ngFor="let error of note.errors.server">{{error}}</span>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-6 col-sm-4">
+          <button class="btn-regular-alt btn-block" type="submit" [disabled]="isBusy" [innerText]="childParticipant ? 'Save' : 'New'"></button>
+        </div>
+        <div class="col-6 col-sm-4" *ngIf="childParticipant">
+          <button class="btn-regular btn-block" type="button" [disabled]="isBusy" *ngIf="childParticipant" (click)="cancelEditChild()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped mt-4">
+      <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Birth Date</th>
+        <th>Language Spoken</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <ng-container *ngIf="participantExtended.childParticipants && participantExtended.childParticipants.length > 0">
+        <tr *ngFor="let child of participantExtended.childParticipants" [ngClass]="{'table-primary': child === childParticipant}">
+          <td>{{child.firstName}}</td>
+          <td>{{child.lastName}}</td>
+          <td>{{child.gender}}</td>
+          <th>{{child.birthDate | date:'dd.MM.yyyy'}}</th>
+          <th>{{child.languageSpoken}}</th>
+          <th><button type="button" class="btn btn-success btn-sm" (click)="editChild(child)" [disabled]="isBusy">Edit</button></th>
+        </tr>
+      </ng-container>
+      <tr *ngIf="!participantExtended.childParticipants || participantExtended.childParticipants.length == 0">
+        <td colspan="6">No data.</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

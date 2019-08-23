@@ -1,0 +1,43 @@
+.error-page-container {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    max-height: 100vh;
+    padding-top: 10vh;
+
+    .title {
+        font-size: 80px;
+        color: $primary;
+        margin-bottom: 0;
+    }
+
+    .text {
+        font-size: 40px;
+        color: $black;
+    }
+
+    &:after {
+        content: '?';
+        position: absolute;
+        bottom: -45%;
+        right: -5%;
+        opacity: 0.3;
+        color: $primary;
+        font-size: 80vh;
+        line-height: 1;
+
+        @media (max-width: 991px) {
+            /*bottom: -50%;
+            right: -25%;
+            font-size: 100vh;*/
+        }
+    }
+}

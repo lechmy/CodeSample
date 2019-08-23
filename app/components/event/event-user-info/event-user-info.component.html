@@ -1,0 +1,220 @@
+<div class="row justify-content-center">
+  <div class="col-12 col-lg-10">
+    <hr />
+    <h2 class="title">Parent info</h2>
+    <div class="row">
+      <div class="col-12 col-md-4">
+        <div class="user-details">
+          <p class="label">First Name</p>
+          <p class="value">{{participant.firstName}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="user-details">
+          <p class="label">Last Name</p>
+          <p class="value">{{participant.lastName}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="user-details">
+          <p class="label">Email</p>
+          <p class="value">{{participant.email}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="user-details">
+          <p class="label">Phone</p>
+          <p class="value">{{participant.phone}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="user-details">
+          <p class="label">Address</p>
+          <p class="value">{{participant.address}}</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="user-details">
+          <p class="label">District</p>
+          <p class="value">{{participant.district}}</p>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="!childrenEnrolled">
+      <div>
+        <hr />
+        <h2 class="title">Choose child</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Birth Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let child of participant.childParticipants">
+              <th scope="row">
+                <div class="checkbox">
+                  <input id="{{child.childParticipantId}}" type="checkbox" (change)="selectChild($event)" value="{{child.childParticipantId}}">
+                  <label for="{{child.childParticipantId}}"></label>
+                </div>
+              </th>
+              <td>{{child.firstName}}</td>
+              <td>{{child.lastName}}</td>
+              <td>{{child.birthDate | date: 'dd-MM-yyyy'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="!this.enrollment.childParticipantIds.length">
+        <hr />
+        <h2 class="title">Or add another child</h2>
+        <form [formGroup]="addChildForm" novalidate>
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+              <div class="inputgroup">
+                <label>Child First Name *</label>
+                <input type="text" name="childFirstName" formControlName="childFirstName">
+                <div *ngIf="validator.childFirstName?.invalid" class="validation-message">
+                  <span>Child's first name is required</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="inputgroup">
+                <label>Child Last Name</label>
+                <input type="text" name="childLastName" formControlName="childLastName">
+                <div *ngIf="validator.childLastName?.invalid" class="validation-message">
+                  <span>Child's last name is required</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-3">
+              <div class="inputgroup">
+                <label>Gender *</label>
+                <select name="gender" formControlName="gender">
+                  <option *ngFor="let item of gender" [ngValue]="item">{{item}}</option>
+                </select>
+                <div *ngIf="validator.gender?.invalid" class="validation-message">
+                  <span>Child's gender is required</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="inputgroup">
+                <label>Birth Day *</label>
+                <select name="birthDay" formControlName="birthDay">
+                  <option *ngFor="let item of birthDate.day" [ngValue]="item">{{item}}</option>
+                </select>
+                <div *ngIf="validator.birthDay?.invalid" class="validation-message">
+                  <span>Child's birth day is required</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="inputgroup">
+                <label>Birth Month *</label>
+                <select name="advert" formControlName="birthMonth">
+                  <option *ngFor="let item of birthDate.month" [ngValue]="item">{{item}}</option>
+                </select>
+                <div *ngIf="validator.birthMonth?.invalid" class="validation-message">
+                  <span>Child's birth month is required</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="inputgroup">
+                <label>Birth Year *</label>
+                <select name="advert" formControlName="birthYear">
+                  <option *ngFor="let item of birthDate.year" [ngValue]="item">{{item}}</option>
+                </select>
+                <div *ngIf="validator.birthYear?.invalid" class="validation-message">
+                  <span>Child's birth year is required</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="inputgroup">
+                <label>Language Spoken *</label>
+                <select name="languageSpoken" formControlName="languageSpoken">
+                  <option *ngFor="let item of languageSpoken" [ngValue]="item">{{item}}</option>
+                </select>
+                <div *ngIf="validator.languageSpoken?.invalid" class="validation-message">
+                  <span>Child's spoken language is required</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="inputgroup">
+                <label>Note</label>
+                <textarea name="note" formControlName="note"></textarea>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <div class="inputgroup">
+            <label>Your price</label>
+            <input type="text" name="price" value="{{currencySign}}{{eventPrice.calculatedPriceTotal}}" readonly>
+            <div class="discount-messages">
+              <span *ngFor="let info of eventPrice.discountInfo">{{info}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6">
+          <app-event-coupon [institutionId]="participant.institutionId" [eventId]="event.eventId" (couponValidated)="onCouponValidated($event)"></app-event-coupon>
+        </div>
+        <div class="col-12">
+          <div class="inputgroup">
+            <div class="checkbox">
+              <input id="terms" type="checkbox" [formControl]="isAcceptedTerms">
+              <label for="terms">I have read and accept the T&C and privacy policy</label>
+            </div>
+            <div *ngIf="isAcceptedTerms.invalid && isAcceptedTerms.value == false" class="validation-message">
+              <span>Please select T&C</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn-regular-alt btn-block" (click)="enrolUser()" [disabled]="isBusy">Register</button>
+      <div *ngIf="invalidDate" class="validation-message">
+        <span>Invalid birth date</span>
+      </div>
+      <div *ngIf="noChildSelected" class="validation-message">
+        <span>No children selected</span>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="childrenEnrolled">
+      <div class="finished-enrollment">
+        <ng-container *ngIf="enrollmentResult.successfullInfo.length || enrollmentResult.waitingListInfo.length">
+          <div class="icon"></div>
+          <h2 class="enrollment-title">Thank you</h2>
+          <p class="enrollment-subtitle">Your submission has been received</p>
+        </ng-container>
+        <div class="server-response">
+          <span *ngFor="let response of enrollmentResult.alreadyRegisterInfo" class="text-danger">{{response}}</span>
+          <span *ngFor="let response of enrollmentResult.successfullInfo" class="text-success">{{response}}</span>
+          <span *ngFor="let response of enrollmentResult.waitingListInfo" class="text-warning">{{response}}</span>
+        </div>
+        <p *ngIf="enrollmentResult.successfullInfo.length" class="enrollment-text">
+          The confirmation message with program details and invoice with payment instructions has been sent to your email.<br>
+          (Please check your SPAM folder in case the message is missing)
+        </p>
+        <div class="text-center">
+          <button class="btn-regular" (click)="goBack()">Go back</button>&nbsp;
+          <a [routerLink]="['/account'] | languageAndInstitution" fragment="events" *ngIf="isStripeActive" class="btn btn-primary">Pay online</a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="floating-info">
+  <span>Price: <strong>{{currencySign}}{{eventPrice.calculatedPriceTotal}}</strong></span>
+</div>

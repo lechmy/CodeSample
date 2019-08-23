@@ -1,0 +1,33 @@
+<div class="container">
+  <h2 class="page-title">Login</h2>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="invalidLogin" class="alert alert-danger" role="alert">
+          Invalid email or password.
+        </div>
+        <ng-container *ngIf="institutionId.invalid">
+          <div *ngIf="institutionId.errors.required" class="alert alert-danger" role="alert">
+            Institution is not selected.
+          </div>
+        </ng-container>
+        <div class="inputgroup">
+          <label for="loginForm.email">Email</label>
+          <input type="email" id="loginForm.email" formControlName="email" [ngClass]="{'is-invalid': email.invalid && (email.dirty || email.touched)}">
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="validation-message" >
+            <span *ngIf="email.errors.required">Email is required.</span>
+          </div>
+        </div>
+        <div class="inputgroup">
+          <label for="loginForm.password">Password</label>
+          <input type="password" id="loginForm.password" formControlName="password" [ngClass]="{'is-invalid': password.invalid && (password.dirty || password.touched)}">
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="validation-message" >
+            <span *ngIf="password.errors.required">Password is required.</span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-regular-alt btn-block" [disabled]="isBusy">Login</button>
+        <button type="button" class="btn btn-link mt-2" (click)="onPasswordForget()">Forgot Password?</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+// Global library overides
+
+// SLICK
+// ------------------------------
+.slick-slide{
+    &:focus{
+        outline: none;
+    }
+}
+
+.form-row > .invalid-feedback {
+  display: block;
+}
+
+.cal-week-view .cal-day-headers span{
+  display: none;
+}

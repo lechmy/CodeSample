@@ -1,0 +1,15 @@
+$font-path: '/assets/fonts';
+
+@font-face {
+    font-family: 'Diavlo';
+    font-style: normal;
+    font-weight: 300;
+    src: url('#{$font-path}/Diavlo-Book.otf');
+}
+
+@font-face {
+    font-family: 'Diavlo';
+    font-style: normal;
+    font-weight: 700;
+    src: url('#{$font-path}/Diavlo-Bold.otf');
+}

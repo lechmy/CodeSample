@@ -1,0 +1,19 @@
+<div class="payment">
+  <form #paymentForm (ngSubmit)="onPaymentSubmit()" novalidate>
+    <div class="row">
+      <div class="col-9">
+        <div class="js-card-element">
+          <!-- A Stripe Element will be inserted here. -->
+        </div>
+
+        <!-- Used to display form errors. -->
+        <div role="alert">
+          {{ cardError }}
+        </div>
+      </div>
+      <div class="col-3">
+        <button class="btn-regular btn-block" [ngClass]="{ 'loading': isBusy }" [disabled]="isBusy">Pay</button>
+      </div>
+    </div>
+  </form>
+</div>

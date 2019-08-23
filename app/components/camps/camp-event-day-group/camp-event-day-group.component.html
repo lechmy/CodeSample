@@ -1,0 +1,57 @@
+<ng-container *ngIf="event.campOnlyWeekly">
+  <p class="language">{{event.language}}</p>
+  <p>{{event.eventDaysExtendedCampGroupByDate[0].eventDayDate}} - {{event.eventDaysExtendedCampGroupByDate[event.eventDaysExtendedCampGroupByDate.length - 1].eventDayDate}}</p>
+
+  <div class="event-week-container">
+    <!--<strong class="price">Price: {{currencySign}}{{weekSummedPrice}}</strong>-->
+    <div *ngFor="let eventTime of event.eventDaysExtendedCampGroupByDate[0].eventDays; let i = index" class="event-week-time">
+      <strong class="price">Price: {{currencySign}}{{weekSummedPrice[i]}}</strong>
+      <span (click)="selectWeekTime(event.eventDaysExtendedCampGroupByDate, eventTime.eventDayId, eventTime.name)"
+            [ngClass]="{'active': eventTime.eventDayId === selectedTime, 'disabled': eventTime.freePlaceLeft == 0}"
+            class="event-day-time">
+        {{eventTime.name}}<br/>
+        Free places {{eventTime.freePlaceLeft}}
+      </span>
+            <!--(click)="selectEventTime(event.eventId, event.eventDaysExtendedCampGroupByDate[0].eventDayDate, eventTime.eventDayId)"-->
+    </div>
+  </div>
+  <!--<a [routerLink]="['/event', event.eventId] | languageAndInstitution"-->
+     <!--[queryParams]="{eventDayIds: eventDayIds}"-->
+     <!--[ngClass]="{'disabled': !event.isBookable || isEventInvalid}"-->
+     <!--class="btn btn-regular-alt btn-block">Book</a>-->
+  <button (click)="bookEvent()" [disabled]="!event.isBookable || isEventInvalid" class="btn-regular-alt btn-block">Book</button>
+  <div class="validation-message" *ngIf="isEventInvalid">
+    <span>Please select time slot above</span>
+  </div>
+  <div class="info-bubble discount">
+    <span *ngFor="let discount of event.eventDiscounts">{{discount.discountInfo}}</span>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!event.campOnlyWeekly">
+  <p class="language">{{event.language}}</p>
+  <div *ngFor="let eventDate of event.eventDaysExtendedCampGroupByDate" class="event-day-group">
+    <span>{{eventDate.eventDayDate}}</span>
+    <div class="event-day-time-container">
+      <span *ngFor="let eventTime of eventDate.eventDays"
+            (click)="selectEventTime(eventDate.eventDayDate, eventTime.eventDayId)"
+            [ngClass]="{'active': eventTime.eventDayId === selectedIds[eventDate.eventDayDate]}"
+            class="event-day-time">
+        {{eventTime.name}}<br/>
+        Free places {{eventTime.freePlaceLeft}}<br/>
+        <strong>Price: {{currencySign}}{{eventTime.price}}</strong>
+      </span>
+    </div>
+  </div>
+  <!--<a [routerLink]="['/event', event.eventId] | languageAndInstitution"-->
+     <!--[queryParams]="{eventDayIds: eventDayIds}"-->
+     <!--[ngClass]="{'disabled': !event.isBookable || isEventInvalid}"-->
+     <!--class="btn btn-regular-alt btn-block">Book</a>-->
+  <button (click)="bookEvent()" [disabled]="!event.isBookable || isEventInvalid" class="btn-regular-alt btn-block">Book</button>
+  <div class="validation-message" *ngIf="isEventInvalid">
+    <span>Please select time slot above</span>
+  </div>
+  <div *ngIf="event.eventDiscounts.length" class="info-bubble discount">
+    <span *ngFor="let discount of event.eventDiscounts">{{discount.discountInfo}}</span>
+  </div>
+</ng-container>
